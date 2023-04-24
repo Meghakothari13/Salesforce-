@@ -1,0 +1,20 @@
+Amdocs is a Product based company. They want functionality that allows them to change
+the ownership of multiple records from different objects without updating each record
+individually.
+For this, you have to create an LWC component that includes a data table and objects
+picklist. Based on object selection you need to show records in the data table. The data
+table will display the last 20 records created. There will be two-row action buttons i.e
+View and Delete. On click of View, the user should be redirected to the record detail
+page.
+There is one more data table to show the list of users. There will be an assign button for
+each user record row. The user should be able to select multiple records from the record
+table and can assign them to any of the users from the user table using the assign
+button.
+Similar to multiple record selection, a user can select multiple users as well from the
+Users table and then in the object record data table only those records will be shown
+which are owned by select users. For example, if we select User1 in the user table only
+those leads/cases will be shown that are owned by User1. It will also work if we select
+multiple users in the user table.
+Note: Objects available in the picklist should be Account, Contact, Lead, Opportunity, and
+Case. The data table should have the following columns:
+Name (ex. Case Number for Case), and the Owner field as columns
