@@ -1,0 +1,32 @@
+.main
+	{
+	display: flex;
+	margin-left: 2rem;
+	margin-right: 2rem;
+	margin-top:2rem;
+	}
+
+.divs
+	{
+	border:1px solid black;
+	width:80rem;
+	height:30rem;
+	margin-left: 1rem;
+	overflow: auto;
+	}
+.labels
+	{
+	color: white;
+	background-color: rgb(3, 3, 87);
+	text-align: center;
+	width: -webkit-fill-available;
+	height: 3rem;
+	font-size: 23px;
+	font-weight: bold;
+	}
+
+.events
+	{
+		border:1px solid black;
+		font-size: 25px;
+	}

@@ -1,0 +1,199 @@
+<template>
+    <lightning-card>
+        <div class="main">
+            <div data-id="New_Alerts" class='divs' title="New Alerts" ondragover={allowDrop} ondrop={dropFun}>
+                <div class="labels" >
+                     <lable>New Alerts</lable>
+                </div>
+                <br>
+                <template for:each={finaldata} for:item="evt">
+                    <template if:true={evt.Stages.New_Alerts}>
+                         <div data-id={evt.Id} key={evt.Id} class="events" draggable=true ondragstart={dragFun} title={evt.Id}>
+                             <a onclick={clickFun} data-id={evt.Id}>{evt.Name}</a><br> Criticalness:<br>{evt.Criticalness}</div><br key={evt.Id}>
+                    </template>
+                </template>
+            </div>
+            <div data-id="Preliminary_Review" class='divs' title="Preliminary Review" ondragover={allowDrop} ondrop={dropFun}>
+                <div class="labels">
+                    <lable>Preliminary Review</lable>
+                </div>
+                <br>
+                <template for:each={finaldata} for:item="evt">
+                    <template if:true={evt.Stages.Preliminary_Review}>
+                         <div data-id={evt.Id} key={evt.Id} class="events" draggable=true ondragstart={dragFun} title={evt.Id}>
+                             <a onclick={clickFun} data-id={evt.Id}>{evt.Name}</a><br> Criticalness:<br>{evt.Criticalness}</div><br key={evt.Id}>
+                    </template>
+                </template>
+            </div>
+            <div data-id="InProgress_Inspection" class='divs' title="InProgress-Inspection" ondragover={allowDrop} ondrop={dropFun}>
+                <div class="labels">
+                    <lable>InProgress-Inspection</lable>
+                </div>
+                <br>
+                <template for:each={finaldata} for:item="evt">
+                    <template if:true={evt.Stages.InProgress_Inspection}>
+                         <div data-id={evt.Id} key={evt.Id} class="events" draggable=true ondragstart={dragFun} title={evt.Id}>
+                             <a onclick={clickFun} data-id={evt.Id}>{evt.Name}</a><br> Criticalness:<br>{evt.Criticalness}</div><br key={evt.Id}>
+                    </template>
+                </template>                
+            </div>
+            <div data-id="Completed" class='divs' title='Completed' ondragover={allowDrop} ondrop={dropFun}>
+                <div class="labels">
+                    <lable>Completed</lable>                    
+                </div>
+                <br>
+                <template for:each={finaldata} for:item="evt">
+                    <template if:true={evt.Stages.Completed}>
+                         <div data-id={evt.Id} key={evt.Id} class="events" draggable=true ondragstart={dragFun} title={evt.Id}>
+                             <a onclick={clickFun} data-id={evt.Id}>{evt.Name}</a>
+                             <br> Criticalness:<br>{evt.Criticalness}</div><br key={evt.Id}>
+                    </template>
+                </template>                
+            </div>
+            <div data-id="False_Alarm" class='divs' title='False Alarm' ondragover={allowDrop} ondrop={dropFun}>
+                <div class="labels">
+                    <lable>False Alarm</lable>
+                </div>
+                <br>
+                <template for:each={finaldata} for:item="evt">
+                    <template if:true={evt.Stages.False_Alarm}>
+                         <div data-id={evt.Id} key={evt.Id} class="events" draggable=true ondragstart={dragFun} title={evt.Id}>
+                             <a onclick={clickFun} data-id={evt.Id}>{evt.Name}</a>
+                             <br> Criticalness:<br>{evt.Criticalness}</div><br key={evt.Id}>
+                    </template>
+                </template>
+            </div>
+        </div>
+
+
+                <!--modal start -->      
+        <template if:true={isShowModal}>
+
+                    <!--
+                        I Used SLDS for this code
+                        Here is link https://www.lightningdesignsystem.com/components/modals/
+                    --> 
+
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- modal header start -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={hidePiModalBox}>
+                        <lightning-icon icon-name="utility:close"
+                        alternative-text="close"
+                        variant="inverse"
+                        size="small" onclick={hideModalBox}></lightning-icon>
+                        <span class="slds-assistive-text" >Close</span>
+                    </button>
+                </header>
+            
+                <!-- modal body start -->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-11">
+                        <div class="slds-m-top_medium slds-m-bottom_x-large">
+                            <div class="slds-p-around_medium lgc-bg ">
+                            <lightning-button variant="brand" label="View Event" title="View" onclick={viewModalFun}></lightning-button>
+                            &nbsp; &nbsp;
+                            <lightning-button variant="brand" label="Edit" title="Edit" onclick={editModalFun}></lightning-button>
+                            </div>
+                    
+                        </div>
+                </div>
+
+                <!-- modal footer start-->
+                <!-- <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_brand" onclick={savePiModalRecord}>Save</button>
+                    <button class="slds-button slds-button_neutral" onclick={hidePiModalBox}>Cancel</button>
+                </footer>
+                -->
+            </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+        <!-- modal end -->
+
+<!-- view modal -->
+        <template if:true={isViewModal}>
+
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- modal header start -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={hidePiModalBox}>
+                        <lightning-icon icon-name="utility:close"
+                        alternative-text="close"
+                        variant="inverse"
+                        size="small" onclick={hideViewModalBox}></lightning-icon>
+                        <span class="slds-assistive-text" >Close</span>
+                    </button>
+                    <h2> Event Details </h2>
+                </header>
+            
+                <!-- modal body start -->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-12">
+                        <div class="slds-m-top_medium slds-m-bottom_x-large">
+                            <div class="slds-p-around_medium lgc-bg ">
+                            <template for:each={showDetails} for:item="item">
+                                <div key={item.Id}>
+                                    <b>Event Name : </b>{item.Name}
+                                    <br>
+                                    <b>Event Account : </b>{item.Account__r.Name}
+                                    <br>
+                                    <b>Event Stage : </b>{item.Stages__c}
+                                    <br>
+                                    <b>Event Criticalness : </b>{item.Criticalness__c}
+                                    <br>
+                                    <b> Event Description : </b>{item.Description__c}
+                                    <br>
+                                    <b>Account City : </b>{item.Account__r.BillingCity}
+                                </div>
+                            </template>
+                            </div>
+                    
+                        </div>
+                </div>
+            </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+        <!-- modal end -->
+
+        <!-- edit modal -->
+        <template if:true={isEditModal}>
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- modal header start -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={hidePiModalBox}>
+                        <lightning-icon icon-name="utility:close"
+                        alternative-text="close"
+                        variant="inverse"
+                        size="small" onclick={hideEditModalBox}></lightning-icon>
+                        <span class="slds-assistive-text" >Close</span>
+                    </button>
+                </header>
+            
+                <!-- modal body start -->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-13">
+                        <div class="slds-m-top_medium slds-m-bottom_x-large">
+                            <div class="slds-p-around_medium lgc-bg ">
+                                <lightning-input type="text" label="Description" data-id="desc" required></lightning-input>
+                            </div>
+                    
+                        </div>
+                </div>
+
+                <!-- modal footer start-->
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_brand" onclick={saveEditModalRecord}>Save</button>
+                    <button class="slds-button slds-button_neutral" onclick={hideEditModalBox}>Cancel</button>
+                </footer>
+               
+            </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+        <!-- modal end -->
+
+
+    </lightning-card>
+</template>
