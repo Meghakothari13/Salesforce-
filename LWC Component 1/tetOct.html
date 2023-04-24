@@ -1,0 +1,61 @@
+<template>
+    <lightning-card>
+        <div class="slds-grid">
+        <lightning-combobox
+            
+            name="object"
+            label="Object"
+            value={value}
+            options={options}
+            onchange={handleChange}
+            class="slds-col slds-size_6-of-12 slds-p-around_small" ></lightning-combobox>
+
+        <lightning-input type="text" variant="standard" name="NumberofRecords" label="No. of Records"  class="slds-col slds-size_6-of-12 slds-p-around_small" data-id='numberRecords'></lightning-input>
+        </div>
+
+        <lightning-button variant="Neutral" label="Enter" title="Enter" onclick={handleClick}></lightning-button>
+        <div class="slds-card">
+        <template if:true={isEnter}>
+            <template for:each={data} for:item="item">
+                <div key={item.Id} class="slds-grid" >
+                    <div class="slds-form-element slds-col slds-size_4-of-12 slds-p-around_small">
+                        <label class="slds-form-element__label">FIELDS</label>
+                        <div class="slds-form-element__control">
+                            <div class="slds-select_container" data-id={item.id}>
+                                <select class="slds-select" onchange={choseFieldFun} data-class={item.id}> 
+                                    <option value="">Please select</option>
+                                    <template for:each={d} for:item="i">
+                                    <option key={i.Id} value={i.Name}>{i.Name}</option>
+                                    </template>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slds-form-element slds-col slds-size_4-of-12 slds-p-around_small">
+                        <label class="slds-form-element__label">OPTION</label>
+                        <div class="slds-form-element__control">
+                            <div class="slds-select_container">
+                                <select class="slds-select" data-class={item.id} onchange={changeOptionFun} data-option={item.id}>
+                                    <option value="">Please select</option>
+                                    <template for:each={item.Option} for:item="opt">
+                                    <option value={opt} key={opt.Id}>{opt}</option>
+                                    </template>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_4-of-12 slds-p-around_small">
+                    <lightning-input type={item.Type} label="VALUE" variant="standard" name="value" data-class={item.id} data-input={item.id}></lightning-input>
+                    </div>
+                </div>
+            </template>
+            <div class="slds-grid">
+                <div class="slds-col">
+                    <lightning-button variant="brand" label="Create" title="Create" onclick={createRecordFun}  class="slds-float_right" ></lightning-button>
+                </div>
+            </div>
+        </template>
+        </div>
+    </lightning-card>
+</template>
