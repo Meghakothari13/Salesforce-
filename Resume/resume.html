@@ -1,0 +1,349 @@
+<template>
+  
+
+    <lightning-card >
+      <lightning-progress-indicator current-step={step} type="path" has-error="true" variant="base">
+        <lightning-progress-step label="Personal Information" value="Personal Information"  onclick={stepInc}></lightning-progress-step>
+        <lightning-progress-step label="Education" value="Education"  onclick={stepInc}></lightning-progress-step>
+        <lightning-progress-step label="Additional Information" value="Additional Information"  onclick={stepInc}></lightning-progress-step>
+    </lightning-progress-indicator>
+
+    
+
+    <template if:true={firstPage}>
+        <div class="slds-align_right slds-p-around_medium lgc-bg">
+            <div class=" slds-float_right">
+                <lightning-button label="Add Fields" onclick={addFields} ></lightning-button>
+            </div>
+        </div>
+        <div  class="slds-grid slds-wrap slds-col slds-p-around_medium lgc-bg">
+            <div class="slds-size_10-of-12">
+                <lightning-input type="file" label="Image" onchange={loadImg} accept={acceptedFormats}> </lightning-input>
+            </div>
+            <div class=" slds-size_2-of-12">
+                <img src={imgSrc} alt="User Image" height="150px" width="150px"/>
+            </div>
+        </div>
+        <div class="slds-grid slds-wrap slds-col slds-p-around_medium lgc-bg">
+            <template for:each={personalInfoArr} for:item="pi" for:index="i">
+
+                <div class=" slds-size_6-of-12 slds-p-right_small" key={pi.Id}>
+                    <lightning-input type="text" label={pi} class={pi}></lightning-input>
+                </div>
+        </template>
+        </div>
+    </template>
+
+    <template if:true={secPage}>
+        <div class="slds-align_right slds-p-around_medium lgc-bg">
+            <div class=" slds-float_right">
+                <lightning-button label="Add Education" onclick={addEducation} ></lightning-button>
+            </div>
+        </div><br>
+        <br>
+        <div class="slds-grid slds-wrap slds-col slds-p-around_medium lgc-bg">
+            <div class=" slds-size_4-of-12 slds-p-right_small">
+                <label><b>DEGREE</b></label>
+            </div>
+            <div class=" slds-size_4-of-12 slds-p-right_small">
+                <label><b>SCHOOL/UNIVERSITY</b></label>
+            </div>
+            <div class=" slds-size_4-of-12 slds-p-right_small">
+                <label><b>PERCENTAGE/CGPA</b></label>
+            </div>
+        </div>
+        <div class="slds-p-around_medium lgc-bg">
+            <template for:each={educationArr} for:item="edu">
+            <div class="slds-grid slds-wrap slds-col" key={edu.Id}>
+                <div class=" slds-size_4-of-12 slds-p-right_small">
+                    <lightning-input type="text" value={edu} class='degree' disabled></lightning-input>
+                </div>
+                <div class=" slds-size_4-of-12 slds-p-right_small">
+                    <lightning-input type="text" class="school"></lightning-input>
+                </div>
+                <div class=" slds-size_4-of-12 slds-p-right_small">
+                <lightning-input type="text" class="cgpa"></lightning-input>
+                </div>
+            </div>
+        </template>
+        </div>
+    </template>
+
+    <template if:true={thirdPage}>
+        <div class="slds-align_right slds-p-around_medium lgc-bg">
+            <div class=" slds-float_right">
+                <lightning-button label="Add Additional Information" onclick={addHobbies} ></lightning-button>
+            </div>
+        </div><br>
+        <br>
+        <div class="slds-grid slds-wrap slds-col slds-p-around_medium lgc-bg">
+            <template for:each={addInfoArr} for:item="adInfo">
+            
+                <div class=" slds-size_6-of-12 slds-p-left_medium" key={adInfo.Id}>
+                    <lightning-input type="text" label={adInfo} class='adInfo'></lightning-input>
+                </div>
+            
+        </template>
+        </div>
+        
+        
+    </template>
+
+
+    <div>
+        <lightning-button label="Next" onclick={nextPath}>
+    </lightning-button>
+    </div>
+<!-- 
+
+    <div>
+        <lightning-button label="Create PDF" onclick={createPdf}></lightning-button>
+    </div> -->
+
+  <!--Add Personal Information modal start -->      
+   <template if:true={isShowPIModal}>
+
+            <!--
+                I Used SLDS for this code
+                Here is link https://www.lightningdesignsystem.com/components/modals/
+            --> 
+
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+       <div class="slds-modal__container">
+        <!-- modal header start -->
+          <header class="slds-modal__header">
+             <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={hidePiModalBox}>
+                <lightning-icon icon-name="utility:close"
+                   alternative-text="close"
+                   variant="inverse"
+                   size="small" onclick={hideModalBox}></lightning-icon>
+                <span class="slds-assistive-text" >Close</span>
+             </button>
+             <h2 id="modal-heading-011" class="slds-text-heading_medium slds-hyphenate">ADD FIELD</h2>
+          </header>
+      
+          <!-- modal body start -->
+          <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-11">
+                <div class="slds-m-top_medium slds-m-bottom_x-large">
+                    <div class="slds-p-around_medium lgc-bg ">
+                        <lightning-input type="text" label="Field Name" class="fieldName" required></lightning-input>
+                    </div>
+            
+                </div>
+          </div>
+
+          <!-- modal footer start-->
+          <footer class="slds-modal__footer">
+            <button class="slds-button slds-button_brand" onclick={savePiModalRecord}>Save</button>
+             <button class="slds-button slds-button_neutral" onclick={hidePiModalBox}>Cancel</button>
+          </footer>
+       
+       </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+ </template>
+ <!-- modal end -->
+
+
+
+      <!--Add Education modal start -->      
+   <template if:true={isShowEducationModal}>
+
+            <!--
+                I Used SLDS for this code
+                Here is link https://www.lightningdesignsystem.com/components/modals/
+            --> 
+
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+       <div class="slds-modal__container">
+        <!-- modal header start -->
+          <header class="slds-modal__header">
+             <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={hideModalBox}>
+                <lightning-icon icon-name="utility:close"
+                   alternative-text="close"
+                   variant="inverse"
+                   size="small" onclick={hideModalBox}></lightning-icon>
+                <span class="slds-assistive-text" >Close</span>
+             </button>
+             <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">ADD EDUCATION</h2>
+          </header>
+      
+          <!-- modal body start -->
+          <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                <div class="slds-m-top_medium slds-m-bottom_x-large">
+             <div class="slds-p-around_medium lgc-bg ">
+                <lightning-input type="text" label="Degree" class="degree1" required></lightning-input>
+            </div>
+            <!-- <div class="slds-p-around_medium lgc-bg ">
+                <lightning-input type="text" label="School/University" class="uniName" required></lightning-input>
+            </div>
+            <div class="slds-p-around_medium lgc-bg ">
+                <lightning-input type="text" label="Percentage/CGPA" class="cgpa"></lightning-input>
+            </div>  -->
+                </div>
+          </div>
+
+          <!-- modal footer start-->
+          <footer class="slds-modal__footer">
+            <button class="slds-button slds-button_brand" onclick={saveModalRecord}>Save</button>
+             <button class="slds-button slds-button_neutral" onclick={hideModalBox}>Cancel</button>
+          </footer>
+       
+       </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+ </template>
+ <!-- modal end -->
+
+
+      <!--Add Hobbies modal start -->      
+   <template if:true={isShowHobbiesModal}>
+
+            <!--
+                I Used SLDS for this code
+                Here is link https://www.lightningdesignsystem.com/components/modals/
+            --> 
+
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+       <div class="slds-modal__container">
+        <!-- modal header start -->
+          <header class="slds-modal__header">
+             <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={hideHobbiesModalBox}>
+                <lightning-icon icon-name="utility:close"
+                   alternative-text="close"
+                   variant="inverse"
+                   size="small" onclick={hideModalBox}></lightning-icon>
+                <span class="slds-assistive-text" >Close</span>
+             </button>
+             <h2 id="modal-heading-012" class="slds-text-heading_medium slds-hyphenate">ADD ADDITIONAL INFORMATION</h2>
+          </header>
+      
+          <!-- modal body start -->
+          <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-12">
+                <div class="slds-m-top_medium slds-m-bottom_x-large">
+                    <div class="slds-p-around_medium lgc-bg ">
+                        <lightning-input type="text" label="LABEL" class="addInfo" required></lightning-input>
+                    </div>
+                </div>
+          </div>
+
+          <!-- modal footer start-->
+          <footer class="slds-modal__footer">
+            <button class="slds-button slds-button_brand" onclick={saveHobbiesModalRecord}>Save</button>
+             <button class="slds-button slds-button_neutral" onclick={hideHobbiesModalBox}>Cancel</button>
+          </footer>
+       
+       </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+ </template>
+ <!-- modal end -->
+
+
+      <!--Add Preview modal start -->      
+   <template if:true={isShowPreviewModal}>
+
+            <!--
+                I Used SLDS for this code
+                Here is link https://www.lightningdesignsystem.com/components/modals/
+            --> 
+
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+       <div class="slds-modal__container">
+        <!-- modal header start -->
+          <header class="slds-modal__header">
+             <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={hidePreviewModalBox}>
+                <lightning-icon icon-name="utility:close"
+                   alternative-text="close"
+                   variant="inverse"
+                   size="small" onclick={hideModalBox}></lightning-icon>
+                <span class="slds-assistive-text" >Close</span>
+             </button>
+             <h2 id="modal-heading-013" class="slds-text-heading_medium slds-hyphenate">Preview</h2>
+          </header>
+      
+          <!-- modal body start -->
+          <div class="slds-modal__content slds-p-around_medium " id="modal-content-id-13">
+                <div class="slds-grid slds-wrap slds-col">
+                    <div  class="slds-m-top_medium slds-m-bottom_x-large  slds-float_right slds-size_7-of-12 slds-p-left_medium">
+                        <p style="font-size:25px;"><b><u>PERSONAL INFORMATION</u></b></p><br>
+                        <template for:each={piValues} for:item="item">
+                            
+                            <p style="font-size:22px;" key={item.Id}> {item}  </p>
+                        </template>
+                        
+                    </div>
+                    
+                    <div class="slds-m-top_medium slds-m-bottom_x-large slds-size_5-of-12 slds-p-right_small">
+                        <img src={imgSrc} alt="User Image" height="150px" width="150px"/>
+                    </div>
+                </div>
+
+                 <div class="slds-grid slds-wrap slds-col">
+                    <div class="slds-m-top_medium slds-m-bottom_x-large slds-size_6-of-12 slds-p-right_small">
+                    <p style="font-size:25px;"><b><u>EDUCATION</u></b></p><br>
+                    <template for:each={edVal} for:item="item">
+                        
+                        <p style="font-size:22px; border:1px solid black;" key={item.Id}> <b><u>Degree</u> : {item.Degree} </b> <br>
+                        School : {item.School} <br> Percentage/CGPA : {item.Percentage} </p>
+                        <br key={item.Id}>
+                    </template>
+                </div>
+                <div  class="slds-m-top_medium slds-m-bottom_x-large  slds-float_right slds-size_6-of-12 slds-p-left_medium">
+                    <p style="font-size:25px;"><b><u>ADDITIONAL INFORMATION</u></b></p><br>
+                    <ul style="list-style-type:disc">
+                    <template for:each={hobbieVal} for:item="item">
+                        <li style="font-size:22px;" key={item.Id}> {item}</li>
+                        <!-- <p style="font-size:22px;" key={item.Id}> {item}  </p> -->
+                    </template>
+                    </ul>
+                    
+                </div>
+                </div>
+                
+          </div>
+
+          <!-- modal footer start-->
+          <footer class="slds-modal__footer">
+            <button class="slds-button slds-button_brand" onclick={createPdf}>Create Resume</button>
+             <button class="slds-button slds-button_neutral" onclick={hidePreviewModalBox}>Cancel</button>
+          </footer>
+       
+       </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+ </template>
+ <!-- modal end -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </lightning-card>
+  
+
+</template>
