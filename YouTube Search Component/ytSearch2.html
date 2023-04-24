@@ -1,0 +1,57 @@
+<template>
+    <lightning-card>
+        <div style="font-size: 2rem; background-color:#f0f0f0; text-align:center;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" width="65" height="60">
+            <b> YouTube Search</b></div>
+          <!-- Default/basic -->
+          <div class="slds-p-around_medium lgc-bg">
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col slds-size_2-of-3">
+                    <lightning-input type="text" placeholder="type here..." class="insert"></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-3" style="padding-top: 19px;">
+                    <lightning-button variant="brand" title="Let's Go Go" label="Search Video On Youtube" onclick={fetchFun} ></lightning-button>
+                </div>
+              </div>
+          </div>
+     </lightning-card>
+     
+    <lightning-card title="Results">
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_2-of-3">
+    <article class="slds-card" style="margin: 5px;">
+        <div class="slds-card__body slds-card__body_inner" style="padding: 0px;margin: 3px;">
+            <iframe style="height:400px;width:100%;border-radius: 2px;" class="video" allowfullscreen src=""></iframe>
+        </div>
+    </article>
+    </div>
+    <div class="slds-border_left slds-wrap">
+    <div style="height: 400px; width:auto" class="slds-scrollable_y slds-col slds-size_1-of-3">
+       
+        <template for:each={datalist} for:item="item">
+
+            <div key={item.videoId} >
+                <div class=" slds-box">     
+                    <img style="width: 50px;height: 50px;border-radius: 9px;" src={item.imgsrc}>
+                
+                <div >
+    
+                    <button style="border:0px; background-color:white; color:black" value={item.videoId} onclick={setVal}>{item.title}</button><br>
+                        Description :<br>{item.description} 
+                </div>
+            </div>
+
+            </div>
+        </template>
+
+        <div class="slds-align_absolute-center">
+            <template if:true={visibility}>
+                <lightning-button variant="brand" label="Next ☞" title="titleName" onclick={nextpage}></lightning-button>
+            </template>
+        </div>
+    
+    </div>
+    </div>
+    </div>
+    </lightning-card>
+</template>
