@@ -1,0 +1,1 @@
+Created a LWC component in which a KanBan board in linked to event object(Custom object) in salesforce which shows the events records on different stages in the object on the component
