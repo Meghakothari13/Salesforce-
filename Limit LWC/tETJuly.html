@@ -1,0 +1,63 @@
+<template>
+    <lightning-card >
+        <lightning-tabset>
+            <lightning-tab label="Object">
+                <div class="slds-grid slds-wrap" style="display:flex;">
+                    <select  class="slds-col slds-size_1-of-5" name="select1" label="Object" data-id="object" onchange={selObjectFun}>
+                        <option value=''>---Select Object---</option>
+                        <template for:each={objectList} for:item="obj">
+                            <option key={obj.Id} value={obj} >{obj}</option>
+                        </template>
+                    </select>
+                    
+                    <lightning-input class="slds-col slds-size_1-of-5" type="checkbox" label="Formula Fields" value="Formula Fields" onchange={checkedFun}></lightning-input>
+                    <lightning-input class="slds-col slds-size_1-of-5" type="checkbox" label="Rollup " value="Rollup"  onchange={checkedFun}></lightning-input>
+                    <lightning-input class="slds-col slds-size_1-of-5" type="checkbox" label="Lookup " value="Lookup" onchange={checkedFun}></lightning-input>
+                    <lightning-input class="slds-col slds-size_1-of-5" type="checkbox" label="Master-Detail" value="Master-Detail" onchange={checkedFun}></lightning-input>
+                </div>
+               <template if:true={show}>
+                   <div class="slds-p-around_small" style="font-size:1.5rem;">
+                       <table>
+                           <tr>
+                            <th>Field Name</th>
+                            <th>Total</th>
+                            <th>Used</th>
+                            <th>Available</th>
+                            </tr>
+                            <template for:each={finalFieldList} for:item="field">
+                                <tr key={field.Id}>
+                                    <td>{field.Name}</td>
+                                    <td style='color:purple;'>{field.Total}</td>
+                                    <td style="color:red;">{field.Used}</td>
+                                    <td style="color:green;">{field.Available}</td>
+                                </tr>
+                            </template>
+                       </table>
+                   </div>
+               </template>
+            </lightning-tab>
+            <lightning-tab label="User Licenses">
+                <div  class="slds-p-left_small">   
+                    <table style="font-size:1.5rem;">
+                            <tr>
+                                <th>License Name</th>
+                                <th>Total Licenses</th>
+                                <th> Used Licenses</th>
+                                <th>Available Licenses</th>
+                            </tr>
+                            <template for:each={finaluserLicenseList}  for:item="user">
+                                <tr key={user.Id}>
+                                    <td>{user.Name}</td>
+                                    <td style="color:purple;">{user.TotalLicenses}</td>
+                                    <td style="color:red;">{user.UsedLicenses}</td>
+                                    <td style="color:green;">{user.AvailableLicenses}</td>
+                                </tr>
+                        </template>
+                    </table>
+                </div>
+            </lightning-tab>
+            
+        </lightning-tabset>
+    </lightning-card>
+
+</template>
