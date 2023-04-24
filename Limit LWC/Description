@@ -1,0 +1,12 @@
+Advice Alliance is a Consultation Firm and they are using Salesforce and have a
+lot of users and custom objects in it, now they want a dashboard that will reflect
+the Salesforce Org Object Limit, User Licenses and Org Limit(like API callout etc.).
+For this, you need to create a dashboard component with 3 tabs, one will show
+the limits for Object Fields like Reference, Roll Up, Formula, Lookups, Master-detail
+and second will show User licenses count and usage and another will show the
+Salesforce org limit.
+In the dashboard, we have to show the total number of available and currently
+used entities and the total number of entities we can create in salesforce. For
+example, on Account object we can have utmost 500 fields and out of them 300
+is used and 200 is available. The component should refresh automatically
+whenever any new entity (i.e any object, license, field, etc) is created or used.
