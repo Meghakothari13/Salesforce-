@@ -1,0 +1,1 @@
+Company requirement - want a feature to insert/create data in salesforce with specific values.Created a LWC component where user can select the object and the number of records to create. The component will create the number of records in object
