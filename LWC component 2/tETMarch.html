@@ -1,0 +1,44 @@
+<template>
+<lightning-card  variant="Narrow">
+    <div class="slds-grid slds-wrap">
+        <div class="slds-form-element slds-col slds-size_4-of-12 slds-p-around_small">
+            <label class="slds-form-element__label">Select Object</label>
+            <div class="slds-form-element__control">
+                <div class="slds-select_container">
+                    <select class="slds-select" onchange={selectObjectFun}>
+                        <option value="">Please select</option>
+                        <option value="Account">Account</option>
+                        <option value="Case">Case</option>
+                        <option value="Contact">Contact</option>
+                        <option value="Lead">Lead</option>                       
+                        <option value="Opportunity">Opportuity</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="slds-col slds-size_8-of-12 slds-p-around_small" style='text-align:center;font-size:35px;'>
+            User List
+        </div>
+    </div>
+    <div class="slds-grid slds-wrap">
+       <div class="slds-col slds-size_4-of-12 slds-p-around_small">
+            <lightning-datatable
+                key-field="id"
+                data={data}
+                columns={columns}
+                onrowaction={handleRowAction}
+                onrowselection= {selectedDataRowHandler}>
+            </lightning-datatable>
+       </div>
+       <div class="slds-col slds-size_8-of-12 slds-p-around_small">
+            <lightning-datatable
+                key-field="id"
+                data={userData}
+                columns={userColumns}
+                onrowaction={handleRowActionButton}
+                onrowselection= {selectedUserRowHandler}>
+            </lightning-datatable>
+       </div>
+    </div>
+</lightning-card>
+</template>
