@@ -1,0 +1,6 @@
+trigger AccountTrigger on Account (after insert) {
+
+    
+    LanguageChangeClass.myFun1(Trigger.new);
+
+}
